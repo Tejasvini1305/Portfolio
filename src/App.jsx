@@ -31,6 +31,26 @@ const App = () => {
     return () => observer.disconnect();
   }, []);
 
+  const scrollToSection = (sectionRef) => {
+    if (sectionRef && sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setIsMenuOpen(false); // close mobile menu on nav click
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // set initial state
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   useEffect(() => {
   const bubbles = document.querySelector('.bubbles');
 
@@ -254,21 +274,21 @@ const skillsData = [
 const projectsData = [
   {
     title: "Real Estate Project",
-    description: "Full-stack e-commerce solution with payment integration, admin dashboard, and real-time inventory management.",
+    description: "Built a dynamic and responsive frontend for a real estate platform that allows users to explore residential properties with ease. Implemented modern UI components for property listings, filtering, and detailed views using React, HTML, CSS, and JavaScript, ensuring a seamless user experience across devices.",
     imageIcon: "fas fa-shopping-cart",
     codeUrl: "https://github.com/Tejasvini1305/Real-estate-project-",
     liveUrl: "https://admirable-cuchufli-18a0d2.netlify.app/"
   },
   {
     title: "QuickAI - AI Tool Platform",
-    description: "Interactive dashboard with real-time data visualization using D3.js and responsive design.",
+    description: "Built a responsive frontend for an AI-powered platform offering multiple tools such as article generation, title generation, resume analysis, and image editing (background removal, image generation). Designed intuitive UI components using React, HTML, CSS, and JavaScript, ensuring smooth user interaction and seamless API integration.",
     imageIcon: "fas fa-chart-line",
     codeUrl: "https://github.com/Tejasvini1305/QuickAI-Tool-Platform",
     liveUrl: "https://quick-ai-tool-platform-a2qo.vercel.app/"
   },
   {
     title: "Online lecture Schedular",
-    description: "Modern task manager with drag & drop, real-time collaboration, and PWA support.",
+    description: "Developed a fully responsive frontend for an online lecture scheduling platform aimed at simplifying lecture management for students and educators. The application allows users to schedule lectures, view upcoming sessions, and manage timings through an intuitive and interactive interface.",
     imageIcon: "fas fa-tasks",
     codeUrl: "https://github.com/Tejasvini1305/OnlineLectureSchedular",
     liveUrl: "https://69b2a17e9886c40394a03ce1--effervescent-douhua-3d9f99.netlify.app/"
