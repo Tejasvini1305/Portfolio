@@ -1,396 +1,174 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-<<<<<<< HEAD
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import Contact from './components/Contact';
+import React, { useState, useEffect, useRef, useCallback } from "react";
 
-import { skillsData, projectsData, socialLinks } from './data';
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import About from "./components/About";
+import Skills from "./components/Skills";
+import Projects from "./components/Projects";
+import Contact from "./components/Contact";
 
-=======
->>>>>>> 1bfb8d561631700e42bde045002d040cd782937f
-import './App.css';
-import './index.css';
+import { skillsData, projectsData, socialLinks } from "./data";
+
+import "./App.css";
+import "./index.css";
 
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-<<<<<<< HEAD
 
-=======
->>>>>>> 1bfb8d561631700e42bde045002d040cd782937f
   const heroRef = useRef(null);
   const aboutRef = useRef(null);
   const skillsRef = useRef(null);
   const projectsRef = useRef(null);
   const contactRef = useRef(null);
 
-<<<<<<< HEAD
-  const sectionsRefs = { heroRef, aboutRef, skillsRef, projectsRef, contactRef };
+  const sectionsRefs = {
+    heroRef,
+    aboutRef,
+    skillsRef,
+    projectsRef,
+    contactRef,
+  };
 
   const scrollToSection = useCallback((sectionRef) => {
-    if (sectionRef && sectionRef.current) {
-      sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (sectionRef?.current) {
+      sectionRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+
       setIsMenuOpen(false);
     }
   }, []);
 
-=======
->>>>>>> 1bfb8d561631700e42bde045002d040cd782937f
-  // Intersection Observer for animations
+  // Scroll animation
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
           }
         });
       },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      }
     );
 
-    const animateElements = document.querySelectorAll('.animate-on-scroll');
-    animateElements.forEach(el => observer.observe(el));
+    const elements = document.querySelectorAll(".animate-on-scroll");
+
+    elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
   }, []);
-<<<<<<< HEAD
+
+
+  // Cursor light effect
   useEffect(() => {
+    const light = document.querySelector(".cursor-light");
 
-const light=document.querySelector(".cursor-light");
+    if (!light) return;
 
-const move=(e)=>{
+    const move = (e) => {
+      light.style.left = `${e.clientX}px`;
+      light.style.top = `${e.clientY}px`;
+    };
 
-light.style.left=e.clientX+"px";
+    window.addEventListener("mousemove", move);
 
-light.style.top=e.clientY+"px";
+    return () => {
+      window.removeEventListener("mousemove", move);
+    };
+  }, []);
 
-};
 
-window.addEventListener("mousemove",move);
-
-return ()=>window.removeEventListener("mousemove",move);
-
-},[]);
-
-  // Scroll for navbar background
-=======
-
-  const scrollToSection = (sectionRef) => {
-    if (sectionRef && sectionRef.current) {
-      sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setIsMenuOpen(false); // close mobile menu on nav click
-    }
-  };
-
->>>>>>> 1bfb8d561631700e42bde045002d040cd782937f
+  // Navbar scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener('scroll', handleScroll);
-<<<<<<< HEAD
-    handleScroll(); // initialize
-=======
+    window.addEventListener("scroll", handleScroll);
 
-    // set initial state
     handleScroll();
->>>>>>> 1bfb8d561631700e42bde045002d040cd782937f
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
-<<<<<<< HEAD
-  // Bubbles move effect
+
+  // Bubble movement effect
   useEffect(() => {
-    const bubbles = document.querySelector('.bubbles');
+    const bubbles = document.querySelector(".bubbles");
+
     if (!bubbles) return;
 
     const moveBubbles = (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 30;
-      const y = (e.clientY / window.innerHeight - 0.5) * 30;
-      bubbles.style.setProperty('--x', `${x}px`);
-      bubbles.style.setProperty('--y', `${y}px`);
+      const x =
+        (e.clientX / window.innerWidth - 0.5) * 30;
+
+      const y =
+        (e.clientY / window.innerHeight - 0.5) * 30;
+
+      bubbles.style.setProperty("--x", `${x}px`);
+      bubbles.style.setProperty("--y", `${y}px`);
     };
 
-    window.addEventListener('mousemove', moveBubbles);
-    return () => window.removeEventListener('mousemove', moveBubbles);
+    window.addEventListener("mousemove", moveBubbles);
+
+    return () => {
+      window.removeEventListener("mousemove", moveBubbles);
+    };
   }, []);
 
+
   return (
     <div className="App">
-      <Navbar 
-        isMenuOpen={isMenuOpen} 
-        setIsMenuOpen={setIsMenuOpen} 
-        scrollToSection={scrollToSection} 
-        isScrolled={isScrolled} 
+
+      <Navbar
+        isMenuOpen={isMenuOpen}
+        setIsMenuOpen={setIsMenuOpen}
+        scrollToSection={scrollToSection}
+        isScrolled={isScrolled}
         refs={sectionsRefs}
       />
-      <Hero heroRef={heroRef} scrollToSection={scrollToSection} projectsRef={projectsRef} />
-      <About aboutRef={aboutRef} />
-      <Skills skillsRef={skillsRef} skillsData={skillsData} />
-      <Projects projectsRef={projectsRef} projectsData={projectsData} />
-      <Contact contactRef={contactRef} socialLinks={socialLinks} />
-=======
-  useEffect(() => {
-  const bubbles = document.querySelector('.bubbles');
 
-  const moveBubbles = (e) => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 30;
-    const y = (e.clientY / window.innerHeight - 0.5) * 30;
 
-    bubbles.style.setProperty('--x', `${x}px`);
-    bubbles.style.setProperty('--y', `${y}px`);
-  };
+      <Hero
+        heroRef={heroRef}
+        scrollToSection={scrollToSection}
+        projectsRef={projectsRef}
+      />
 
-  window.addEventListener('mousemove', moveBubbles);
 
-  return () => window.removeEventListener('mousemove', moveBubbles);
-}, []);
+      <About
+        aboutRef={aboutRef}
+      />
 
-  return (
-    <div className="App">
-      {/* Navigation */}
-      <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
-        <div className="nav-container">
-          <div className="logo">Tejasvini Katkade</div>
-          <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
-            <li><button onClick={() => scrollToSection(heroRef)} className="nav-link">Home</button></li>
-            <li><button onClick={() => scrollToSection(aboutRef)} className="nav-link">About</button></li>
-            <li><button onClick={() => scrollToSection(skillsRef)} className="nav-link">Skills</button></li>
-            <li><button onClick={() => scrollToSection(projectsRef)} className="nav-link">Projects</button></li>
-            <li><button onClick={() => scrollToSection(contactRef)} className="nav-link">Contact</button></li>
-          </ul>
-          <button 
-            className={`hamburger ${isMenuOpen ? 'active' : ''}`}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
-      </nav>
 
-      {/* Hero Section */}
-     
-      <section ref={heroRef} className="hero">
-        <div className="mouse-light" id="mouseLight"></div>
-       <div className="bubbles">
-    {[...Array(20)].map((_, i) => (
-      <span key={i} style={{ '--i': i }}></span>
-    ))}
-      </div>
-        <div className="hero-content">
-          <h1 className="hero-title animate-on-scroll">
-            Hi, I'm <span className="highlight">Tejasvini Katkade</span>
-          </h1>
-          <p className="hero-subtitle animate-on-scroll" style={{ '--delay': '200ms' }}>
-            Hello, my name is Tejasvini. I am a final-year student with a strong interest in Full Stack Development. I have experience working with technologies like HTML, CSS, JavaScript, React for frontend development and Node.js, Express, and MongoDB for backend development.
-          </p>
-          <button 
-            onClick={() => scrollToSection(projectsRef)}
-            className="cta-button animate-on-scroll"
-            style={{ '--delay': '400ms' }}
-          >
-            View My Work
-          </button>
-        </div>
-      </section>
+      <Skills
+        skillsRef={skillsRef}
+        skillsData={skillsData}
+      />
 
-      {/* About Section */}
-      <section ref={aboutRef} className="about">
-        <div className="container">
-          <h2 className="section-title animate-on-scroll">About Me</h2>
-          <div className="about-content">
-            <div className="about-text animate-on-scroll">
-              <h3>Passionate Developer</h3>
-              <p>
-                Hello, my name is Tejasvini. I am a final-year student and an aspiring Full Stack Developer. I have experience working as a Heuristics Trainee, where I gained practical exposure to analyzing web applications, understanding usability principles, and improving user experience through heuristic evaluation.
-              </p>
-              <p>
-                Along with that, I have technical experience in HTML, CSS, JavaScript, and React for frontend development, and Node.js, Express, and MongoDB for backend development. I enjoy building responsive and user-friendly web applications and working on both the frontend and backend parts of a project.
-              </p>
-              <p>
-                I am currently improving my development and problem-solving skills by working on projects and practicing coding regularly. I am eager to apply my knowledge in a professional environment where I can continue learning and contribute to building efficient and scalable web applications.
-              </p>
-            </div>
-            <div className="profile-img animate-on-scroll">
-              <i className="fas fa-user"></i>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Skills Section */}
-      <section ref={skillsRef} className="skills-section">
-        <div className="container">
-          <h2 className="section-title animate-on-scroll">Skills & Technologies</h2>
-          <div className="skills-wrapper">
-            <div className="skills-grid">
-              {skillsData.map((category, index) => (
-                <SkillCard 
-                  key={`skill-${index}`}  // ✅ FIXED KEY
-                  {...category}
-                  index={index}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <Projects
+        projectsRef={projectsRef}
+        projectsData={projectsData}
+      />
 
-      {/* PROJECTS SECTION - FIXED ✅ */}
-      <section ref={projectsRef} className="projects">
-        <div className="container">
-          <h2 className="section-title animate-on-scroll">My Projects</h2>
-          <div className="projects-grid">
-            {projectsData.map((project, index) => (
-              <ProjectCard 
-                key={`project-${index}`}  // ✅ FIXED: This was the problem!
-                {...project} 
-                index={index} 
-              />
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Contact Section */}
-      <section ref={contactRef} className="contact">
-        <div className="container">
-          <h2 className="section-title">Let's Work Together</h2>
-          <div className="contact-content animate-on-scroll">
-            <h3>katkadeTejasvini@gmail.com</h3>
-            <p>Ready to bring your ideas to life? Let's chat!</p>
-            <div className="social-links">
-              {socialLinks.map((link, index) => (
-                <a key={`social-${index}`} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.label}>
-                  <i className={link.icon}></i>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
->>>>>>> 1bfb8d561631700e42bde045002d040cd782937f
+      <Contact
+        contactRef={contactRef}
+        socialLinks={socialLinks}
+      />
+
     </div>
   );
 };
-
-<<<<<<< HEAD
-export default App;
-=======
-// Components remain the same...
-const SkillCard = ({ title, skills, icon, proficiency, index }) => {
-  return (
-    <div className="skill-card animate-on-scroll" style={{ '--index': index }}>
-      <div className="skill-header">
-        <div className="skill-icon">
-          <i className={icon}></i>
-        </div>
-        <h3>{title}</h3>
-      </div>
-      <div className="skill-tags">
-        {skills.map((skill, skillIndex) => (
-          <span key={`${skill}-${skillIndex}`} className="skill-tag">
-            {skill}
-          </span>
-        ))}
-      </div>
-      <div className="skill-proficiency">
-        <div className="proficiency-bar">
-          <div 
-            className="proficiency-fill" 
-            style={{ '--width': `${proficiency}%` }}
-          />
-        </div>
-        <span className="proficiency-text">{proficiency}%</span>
-      </div>
-    </div>
-  );
-};
-
-const ProjectCard = ({ title, description, imageIcon, codeUrl, liveUrl, index }) => {
-  return (
-    <div className="project-card animate-on-scroll" style={{ '--index': index }}>
-      <div className="project-image">
-        <i className={imageIcon}></i>
-      </div>
-      <div className="project-content">
-        <h3>{title}</h3>
-        <p>{description}</p>
-        <div className="project-links">
-          <a href={codeUrl} target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-github"></i> Code
-          </a>
-          <a href={liveUrl} target="_blank" rel="noopener noreferrer">
-            <i className="fas fa-external-link-alt"></i> Live
-          </a>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Your data (unchanged)
-const skillsData = [
-  {
-    title: "Frontend Development",
-    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
-    icon: "fab fa-react",
-    proficiency: 95
-  },
-  {
-    title: "Backend Development", 
-    skills: ["Node.js", "Express", "MongoDB", "PostgreSQL"],
-    icon: "fas fa-server",
-    proficiency: 90
-  },
-  {
-    title: "DevOps & Tools",
-    skills: ["AWS", "Docker", "Git", "Vercel", "CI/CD"],
-    icon: "fas fa-cogs",
-    proficiency: 88
-  }
-];
-
-const projectsData = [
-  {
-    title: "Real Estate Project",
-    description: "Built a dynamic and responsive frontend for a real estate platform that allows users to explore residential properties with ease. Implemented modern UI components for property listings, filtering, and detailed views using React, HTML, CSS, and JavaScript, ensuring a seamless user experience across devices.",
-    imageIcon: "fas fa-shopping-cart",
-    codeUrl: "https://github.com/Tejasvini1305/Real-estate-project-",
-    liveUrl: "https://admirable-cuchufli-18a0d2.netlify.app/"
-  },
-  {
-    title: "QuickAI - AI Tool Platform",
-    description: "Built a responsive frontend for an AI-powered platform offering multiple tools such as article generation, title generation, resume analysis, and image editing (background removal, image generation). Designed intuitive UI components using React, HTML, CSS, and JavaScript, ensuring smooth user interaction and seamless API integration.",
-    imageIcon: "fas fa-chart-line",
-    codeUrl: "https://github.com/Tejasvini1305/QuickAI-Tool-Platform",
-    liveUrl: "https://quick-ai-tool-platform-a2qo.vercel.app/"
-  },
-  {
-    title: "Online lecture Schedular",
-    description: "Developed a fully responsive frontend for an online lecture scheduling platform aimed at simplifying lecture management for students and educators. The application allows users to schedule lectures, view upcoming sessions, and manage timings through an intuitive and interactive interface.",
-    imageIcon: "fas fa-tasks",
-    codeUrl: "https://github.com/Tejasvini1305/OnlineLectureSchedular",
-    liveUrl: "https://69b2a17e9886c40394a03ce1--effervescent-douhua-3d9f99.netlify.app/"
-  }
-];
-
-const socialLinks = [
-  { url: "https://github.com/Tejasvini1305", icon: "fab fa-github", label: "GitHub" },
-  { url: "https://www.linkedin.com/in/tejasvini-katkade-1aaa352a8/", icon: "fab fa-linkedin", label: "LinkedIn" },
-  { url: "https://twitter.com/Tejasvini1305", icon: "fab fa-twitter", label: "Twitter" },
-  { url: "mailto:katkadetejasvini@gmail.com", icon: "fas fa-envelope", label: "Email" }
-];
 
 export default App;
->>>>>>> 1bfb8d561631700e42bde045002d040cd782937f
