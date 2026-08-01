@@ -1,5 +1,5 @@
 import React from "react";
-import "./Hero.css";
+import "./hero.css";
 
 import heroBg from "../assets/mountain2 image.jpg";
 
